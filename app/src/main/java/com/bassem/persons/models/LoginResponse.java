@@ -12,7 +12,7 @@ public class LoginResponse {
     @SerializedName("data")
     private List<LoginData> data;
     @SerializedName("success")
-    private String success;
+    private boolean success;
 
     public List<LoginData> getData() {
         return data;
@@ -22,11 +22,11 @@ public class LoginResponse {
         this.data = data;
     }
 
-    public String getSuccess() {
+    public boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 }
