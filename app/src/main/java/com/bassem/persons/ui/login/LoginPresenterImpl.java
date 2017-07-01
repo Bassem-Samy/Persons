@@ -50,7 +50,7 @@ public class LoginPresenterImpl implements LoginPresenter {
                                         loginResponse.getSuccess() && loginResponse.getData() != null && loginResponse.getData().size() > 0) {
                                     saveAPIToken(loginResponse.getData().get(0).getApiToken());
                                     saveCompanyDomain(loginResponse.getData().get(0).getCompany().getInfo().getDomain());
-                                    mView.onLoginSuccessful();
+                                    mView.onLoginSuccessful(mSharedPreferencesHelper.getCompanyDomain());
                                 } else {
                                     if (!TextUtils.isEmpty(loginResponse.getError())) {
                                         mView.showMessage(loginResponse.getError());

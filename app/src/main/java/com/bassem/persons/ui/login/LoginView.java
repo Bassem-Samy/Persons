@@ -19,7 +19,7 @@ public interface LoginView {
 
     void showPassowrdCantBeSpaces();
 
-    void onLoginSuccessful();
+    void onLoginSuccessful(String companyDomain);
 
     void showEmptyPassword();
 

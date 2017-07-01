@@ -143,9 +143,9 @@ public class LoginFragment extends Fragment implements LoginView {
     }
 
     @Override
-    public void onLoginSuccessful() {
+    public void onLoginSuccessful(String companyDomain) {
         if (mListener != null) {
-            mListener.onSuccessfulLogin();
+            mListener.onSuccessfulLogin(companyDomain);
         }
     }
 
@@ -192,6 +192,6 @@ public class LoginFragment extends Fragment implements LoginView {
      * activity.
      **/
     public interface OnFragmentInteractionListener {
-        void onSuccessfulLogin();
+        void onSuccessfulLogin(String companyDomain);
     }
 }
