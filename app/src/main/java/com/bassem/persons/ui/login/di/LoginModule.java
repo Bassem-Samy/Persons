@@ -2,10 +2,8 @@ package com.bassem.persons.ui.login.di;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 
-import com.bassem.persons.models.LoginModel;
 import com.bassem.persons.ui.login.LoginInteractor;
 import com.bassem.persons.ui.login.LoginInteractorImpl;
 import com.bassem.persons.ui.login.LoginPresenter;

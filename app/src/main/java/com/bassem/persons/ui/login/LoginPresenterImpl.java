@@ -2,8 +2,8 @@ package com.bassem.persons.ui.login;
 
 import android.text.TextUtils;
 
-import com.bassem.persons.models.LoginModel;
-import com.bassem.persons.models.LoginResponse;
+import com.bassem.persons.models.login.LoginModel;
+import com.bassem.persons.models.login.LoginResponse;
 import com.bassem.persons.utils.Constants;
 import com.bassem.persons.utils.SharedPreferencesHelper;
 

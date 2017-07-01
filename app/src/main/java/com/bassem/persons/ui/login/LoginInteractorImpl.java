@@ -1,7 +1,7 @@
 package com.bassem.persons.ui.login;
 
-import com.bassem.persons.models.LoginModel;
-import com.bassem.persons.models.LoginResponse;
+import com.bassem.persons.models.login.LoginModel;
+import com.bassem.persons.models.login.LoginResponse;
 import com.bassem.persons.network.LoginService;
 
 import io.reactivex.Single;

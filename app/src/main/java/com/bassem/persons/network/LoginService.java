@@ -1,7 +1,7 @@
 package com.bassem.persons.network;
 
-import com.bassem.persons.models.LoginModel;
-import com.bassem.persons.models.LoginResponse;
+import com.bassem.persons.models.login.LoginModel;
+import com.bassem.persons.models.login.LoginResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;

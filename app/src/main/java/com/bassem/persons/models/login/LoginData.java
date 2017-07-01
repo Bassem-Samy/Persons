@@ -1,4 +1,4 @@
-package com.bassem.persons.models;
+package com.bassem.persons.models.login;
 
 import com.google.gson.annotations.SerializedName;
 
