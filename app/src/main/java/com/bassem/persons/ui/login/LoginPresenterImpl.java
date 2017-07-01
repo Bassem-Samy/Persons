@@ -12,6 +12,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 /**
  * Created by Bassem on 7/1/2017.
@@ -36,6 +37,7 @@ public class LoginPresenterImpl implements LoginPresenter {
             return;
         }
         mView.showProgress();
+        mView.showLoggingUserIn();
         mDisposable = mInteractor.login(new LoginModel(email, password))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -50,7 +52,11 @@ public class LoginPresenterImpl implements LoginPresenter {
                                     saveCompanyDomain(loginResponse.getData().get(0).getCompany().getInfo().getDomain());
                                     mView.onLoginSuccessful();
                                 } else {
-                                    mView.showError();
+                                    if (!TextUtils.isEmpty(loginResponse.getError())) {
+                                        mView.showMessage(loginResponse.getError());
+                                    } else {
+                                        mView.showError();
+                                    }
                                 }
 
                             }
@@ -58,8 +64,17 @@ public class LoginPresenterImpl implements LoginPresenter {
                         , new Consumer<Throwable>() {
                             @Override
                             public void accept(@NonNull Throwable throwable) throws Exception {
+
                                 mView.hideProgress();
-                                mView.showError();
+                                if (throwable instanceof HttpException) {
+                                    if (((HttpException) throwable).code() == 400) {
+                                        mView.showWrongLoginCombination();
+                                    } else {
+                                        mView.showError();
+                                    }
+                                } else {
+                                    mView.showError();
+                                }
                             }
                         });
 

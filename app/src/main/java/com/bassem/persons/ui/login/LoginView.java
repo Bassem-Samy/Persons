@@ -24,4 +24,7 @@ public interface LoginView {
     void showEmptyPassword();
 
     void showEmptyEmail();
+    void showLoggingUserIn();
+
+    void showWrongLoginCombination();
 }

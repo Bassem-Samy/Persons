@@ -1,6 +1,7 @@
 package com.bassem.persons.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import java.lang.ref.WeakReference;
@@ -12,26 +13,26 @@ import java.lang.ref.WeakReference;
 public class SharedPreferencesHelper {
     private static final String API_TOKEN_KEY = "api_token";
     private static final String COMPANY_DOMAIN_KEY = "company_domain";
-    PreferenceManager mPreferenceManager;
+    SharedPreferences mSharedPreferences;
 
-    public SharedPreferencesHelper(PreferenceManager manager) {
-        mPreferenceManager = manager;
+    public SharedPreferencesHelper(SharedPreferences sharedPreferences) {
+        mSharedPreferences = sharedPreferences;
     }
 
     public boolean saveApiToken(String token) {
-        return mPreferenceManager.getSharedPreferences().edit().putString(API_TOKEN_KEY, token).commit();
+        return mSharedPreferences.edit().putString(API_TOKEN_KEY, token).commit();
 
     }
 
     public boolean saveCompanyDomain(String companyDomain) {
-        return mPreferenceManager.getSharedPreferences().edit().putString(COMPANY_DOMAIN_KEY, companyDomain).commit();
+        return mSharedPreferences.edit().putString(COMPANY_DOMAIN_KEY, companyDomain).commit();
     }
 
     public String getApiToken() {
-        return mPreferenceManager.getSharedPreferences().getString(API_TOKEN_KEY, null);
+        return mSharedPreferences.getString(API_TOKEN_KEY, null);
     }
 
     public String getCompanyDomain() {
-        return mPreferenceManager.getSharedPreferences().getString(COMPANY_DOMAIN_KEY, null);
+        return mSharedPreferences.getString(COMPANY_DOMAIN_KEY, null);
     }
 }

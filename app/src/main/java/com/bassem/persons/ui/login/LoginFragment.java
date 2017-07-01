@@ -13,15 +13,22 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bassem.persons.R;
+import com.bassem.persons.ui.login.di.DaggerLoginComponent;
+import com.bassem.persons.ui.login.di.LoginModule;
+import com.bassem.persons.utils.Constants;
+
+import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple Fragment to login user
  */
 public class LoginFragment extends Fragment implements LoginView {
+    public static final String TAG = "login_view";
     @BindView(R.id.btn_login)
     Button loginButton;
     @BindView(R.id.edt_email)
@@ -42,7 +49,12 @@ public class LoginFragment extends Fragment implements LoginView {
     String pleaseEnterPassword;
     @BindString(R.string.password_cant_be_spaces)
     String passwordCantBeSpaces;
-
+    @BindString(R.string.logging_user_in)
+    String loggingUserIn;
+    @BindString(R.string.wrong_login_combination)
+    String wrongLoginCombination;
+    @Inject
+    LoginPresenter mPresenter;
     private OnFragmentInteractionListener mListener;
 
     public LoginFragment() {
@@ -61,6 +73,7 @@ public class LoginFragment extends Fragment implements LoginView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DaggerLoginComponent.builder().loginModule(new LoginModule(this, getContext(), Constants.LOGIN_BASE_URL)).build().inject(this);
     }
 
     @Override
@@ -146,8 +159,30 @@ public class LoginFragment extends Fragment implements LoginView {
         showToast(pleaseEnterEmail);
     }
 
+    @Override
+    public void showLoggingUserIn() {
+        showToast(loggingUserIn);
+
+    }
+
+    @Override
+    public void showWrongLoginCombination() {
+        showToast(wrongLoginCombination);
+    }
+
     void showToast(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.btn_login)
+    void onLoginButtonClick() {
+        mPresenter.login(emailEditText.getText().toString(), passwordEditText.getText().toString());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
     }
 
     /**

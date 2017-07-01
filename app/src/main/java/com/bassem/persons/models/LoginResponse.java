@@ -13,6 +13,8 @@ public class LoginResponse {
     private List<LoginData> data;
     @SerializedName("success")
     private boolean success;
+    @SerializedName("error")
+    private String error;
 
     public List<LoginData> getData() {
         return data;
@@ -28,5 +30,13 @@ public class LoginResponse {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }

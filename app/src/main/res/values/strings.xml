@@ -13,5 +13,6 @@
     <string name="please_enter_password">Please enter a password</string>
     <string name="logging_user_in">Logging in</string>
     <string name="password_cant_be_spaces">Password can\'t be spaces</string>
+    <string name="wrong_login_combination">Wrong login email/password combination</string>
 
 </resources>
