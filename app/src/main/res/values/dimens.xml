@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin10">10dp</dimen>
+
+
+    <dimen name="login_title_textsize">20sp</dimen>
+    <dimen name="login_email_textsize">16sp</dimen>
+    <dimen name="login_password_textsize">16sp</dimen>
+</resources>

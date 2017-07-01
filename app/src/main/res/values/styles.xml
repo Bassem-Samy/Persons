@@ -7,5 +7,31 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <!-- Login styles -->
+    <style name="LoginTitleTextStyle">
+        <item name="android:textSize">@dimen/login_title_textsize</item>
+        <item name="android:textColor">@color/blackColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="LoginEmailTextStyle">
+        <item name="android:textSize">@dimen/login_email_textsize</item>
+        <item name="android:textColor">@color/blackColor</item>
+        <item name="android:textColorHint">@color/textGreyColor</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="LoginPasswordTextStyle">
+        <item name="android:textSize">@dimen/login_password_textsize</item>
+        <item name="android:textColor">@color/blackColor</item>
+        <item name="android:textColorHint">@color/textGreyColor</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="LoginButtonStyle">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:background">@drawable/black_button_bg_selector</item>
+
+    </style>
 
 </resources>

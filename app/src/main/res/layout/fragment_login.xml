@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.bassem.persons.ui.login.LoginFragment">
+
+    <ProgressBar
+        android:id="@+id/prgrs_main"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="invisible" />
+
+    <ScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin10"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/LoginTitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin10"
+                android:text="@string/login" />
+
+            <EditText
+                android:id="@+id/edt_email"
+                style="@style/LoginEmailTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:nextFocusDown="@+id/edt_password" />
+
+            <EditText
+                android:id="@+id/edt_password"
+                style="@style/LoginPasswordTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:nextFocusDown="@+id/btn_login" />
+
+            <Button
+                android:id="@+id/btn_login"
+                style="@style/LoginButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin10"
+                android:text="@string/login_button_text" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
