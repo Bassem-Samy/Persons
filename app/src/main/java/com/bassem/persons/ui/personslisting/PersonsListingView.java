@@ -1,5 +1,6 @@
 package com.bassem.persons.ui.personslisting;
 
+import com.bassem.persons.database.models.Person;
 import com.bassem.persons.models.person.PersonData;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface PersonsListingView {
 
     void hideProgress();
 
-    void updateData(List<PersonData> items);
+    void updateData(List<Person> items);
 
     void showError();
 }

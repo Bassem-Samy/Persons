@@ -5,11 +5,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.bassem.persons.R;
+import com.bassem.persons.database.models.Person;
 import com.bassem.persons.models.person.PersonData;
 import com.bassem.persons.ui.personslisting.di.DaggerPersonsListingComponent;
 import com.bassem.persons.ui.personslisting.di.PersonsListingComponent;
@@ -22,6 +26,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -36,6 +42,12 @@ public class PersonsListingFragment extends Fragment implements PersonsListingVi
     @Inject
     SharedPreferencesHelper mHelper;
 
+    @BindView(R.id.rclr_person)
+    RecyclerView personReyclerView;
+    @BindView(R.id.prgrs_main)
+    ProgressBar mainProgressBar;
+    @BindString(R.string.general_error)
+    String generalError;
 
     public PersonsListingFragment() {
         // Required empty public constructor
@@ -91,21 +103,23 @@ public class PersonsListingFragment extends Fragment implements PersonsListingVi
 
     @Override
     public void showProgress() {
+        mainProgressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void hideProgress() {
-
+        mainProgressBar.setVisibility(View.GONE);
     }
 
     @Override
-    public void updateData(List<PersonData> items) {
+    public void updateData(List<Person> items) {
 
     }
 
     @Override
     public void showError() {
+        Toast.makeText(getContext(), generalError, Toast.LENGTH_SHORT).show();
 
     }
 

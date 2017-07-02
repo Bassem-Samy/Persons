@@ -41,19 +41,18 @@ public class PersonsListingPresenterImpl implements PersonsListingPresenter {
     public void getPersons(String apiToken, String sort) {
         disposeRequest();
         mView.showProgress();
-        disposeRequest();
-        Disposable disposable = mInteractor.getPersons(apiToken, sort)
+       compositeDisposable.add(mInteractor.getPersons(apiToken, sort)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<PersonsResponse>() {
                     @Override
                     public void accept(@NonNull PersonsResponse personsResponse) throws Exception {
-                        mView.hideProgress();
                         if (personsResponse != null && personsResponse.getData() != null) {
                             //mView.updateData(personsResponse.getData());
                             mInteractor.deleteAllRecords();
                             savePersonsToDatabase(personsResponse.getData());
                         } else {
+                            mView.hideProgress();
                             mView.showError();
                         }
 
@@ -65,8 +64,8 @@ public class PersonsListingPresenterImpl implements PersonsListingPresenter {
                         mView.hideProgress();
                         mView.showError();
                     }
-                });
-        compositeDisposable.add(disposable);
+                }));
+
     }
 
     @Override
@@ -82,21 +81,20 @@ public class PersonsListingPresenterImpl implements PersonsListingPresenter {
     @Override
     public void savePersonsToDatabase(List<PersonData> items) {
         disposeRequest();
-        Disposable disposable = mInteractor.savePersonsToDatabase(items).subscribeOn(Schedulers.io())
+        compositeDisposable.add(mInteractor.savePersonsToDatabase(items).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(@NonNull Boolean success) throws Exception {
                         if (success) {
-                            mView.hideProgress();
                             getPersonsFromDatabase();
                         } else {
                             mView.hideProgress();
                             mView.showError();
                         }
                     }
-                });
-        compositeDisposable.add(disposable);
+                }));
+
     }
 
     /**
@@ -105,26 +103,27 @@ public class PersonsListingPresenterImpl implements PersonsListingPresenter {
     @Override
     public void getPersonsFromDatabase() {
         disposeRequest();
-        Disposable disposable = mInteractor.getPersonsFromDatabase().subscribeOn(Schedulers.io())
+       compositeDisposable.add(mInteractor.getPersonsFromDatabase().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Person>>() {
                     @Override
                     public void accept(@NonNull List<Person> persons) throws Exception {
                         Log.e("size", Integer.toString(persons.size()));
+                        mView.hideProgress();
+                        mView.updateData(persons);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         mView.showError();
+                        mView.hideProgress();
                     }
-                });
-        compositeDisposable.add(disposable);
+                }));
+
     }
 
     void disposeRequest() {
-        if (!compositeDisposable.isDisposed()) {
-            compositeDisposable.dispose();
-        }
+
         if (compositeDisposable.size() > 0) {
             compositeDisposable.clear();
         }
