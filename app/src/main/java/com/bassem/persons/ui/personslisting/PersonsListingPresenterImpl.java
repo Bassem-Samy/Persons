@@ -10,6 +10,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -22,7 +23,7 @@ import retrofit2.Retrofit;
 public class PersonsListingPresenterImpl implements PersonsListingPresenter {
     private PersonsListingInteractor mInteractor;
     private PersonsListingView mView;
-    private Disposable mDisposable;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public PersonsListingPresenterImpl(PersonsListingView view, PersonsListingInteractor interactor) {
         this.mView = view;
@@ -30,16 +31,18 @@ public class PersonsListingPresenterImpl implements PersonsListingPresenter {
     }
 
     /**
-     *  gets the person listing from api, delete all records in the database then saves them
+     * gets the person listing from api, delete all records in the database then saves them
+     *
      * @param apiToken
      * @param sort
      */
 
     @Override
     public void getPersons(String apiToken, String sort) {
+        disposeRequest();
         mView.showProgress();
         disposeRequest();
-        mDisposable = mInteractor.getPersons(apiToken, sort)
+        Disposable disposable = mInteractor.getPersons(apiToken, sort)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<PersonsResponse>() {
@@ -63,6 +66,7 @@ public class PersonsListingPresenterImpl implements PersonsListingPresenter {
                         mView.showError();
                     }
                 });
+        compositeDisposable.add(disposable);
     }
 
     @Override
@@ -72,11 +76,13 @@ public class PersonsListingPresenterImpl implements PersonsListingPresenter {
 
     /**
      * saves the person listing that comes from the api into the database
+     *
      * @param items
      */
     @Override
     public void savePersonsToDatabase(List<PersonData> items) {
-        mInteractor.savePersonsToDatabase(items).subscribeOn(Schedulers.io())
+        disposeRequest();
+        Disposable disposable = mInteractor.savePersonsToDatabase(items).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Boolean>() {
                     @Override
@@ -90,6 +96,7 @@ public class PersonsListingPresenterImpl implements PersonsListingPresenter {
                         }
                     }
                 });
+        compositeDisposable.add(disposable);
     }
 
     /**
@@ -97,7 +104,8 @@ public class PersonsListingPresenterImpl implements PersonsListingPresenter {
      */
     @Override
     public void getPersonsFromDatabase() {
-        mInteractor.getPersonsFromDatabase().subscribeOn(Schedulers.io())
+        disposeRequest();
+        Disposable disposable = mInteractor.getPersonsFromDatabase().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Person>>() {
                     @Override
@@ -110,11 +118,15 @@ public class PersonsListingPresenterImpl implements PersonsListingPresenter {
                         mView.showError();
                     }
                 });
+        compositeDisposable.add(disposable);
     }
 
     void disposeRequest() {
-        if (mDisposable != null && !mDisposable.isDisposed()) {
-            mDisposable.dispose();
+        if (!compositeDisposable.isDisposed()) {
+            compositeDisposable.dispose();
+        }
+        if (compositeDisposable.size() > 0) {
+            compositeDisposable.clear();
         }
     }
 }
