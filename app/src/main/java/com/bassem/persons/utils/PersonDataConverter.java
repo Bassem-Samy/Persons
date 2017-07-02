@@ -1,8 +1,13 @@
 package com.bassem.persons.utils;
 
 import com.bassem.persons.database.models.Person;
+import com.bassem.persons.models.person.Email;
 import com.bassem.persons.models.person.PersonData;
+import com.bassem.persons.models.person.Phone;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +17,19 @@ import java.util.List;
 
 public class PersonDataConverter {
     public static List<Person> convertAllToDatabasePerson(List<PersonData> items) {
+        Gson gson = new Gson();
         List<Person> list = new ArrayList<>();
-
+        Type emailListType = new TypeToken<List<Email>>() {
+        }.getType();
+        Type phonesListType = new TypeToken<List<Phone>>() {
+        }.getType();
         for (PersonData person : items
                 ) {
-            list.add(new Person(person.getId(), person.getName(), getPersonPicture(person)));
+            list.add(new Person(person.getId(),
+                    person.getName(),
+                    getPersonPicture(person),
+                    gson.toJson(person.getPhones(), phonesListType),
+                    gson.toJson(person.getEmails(), emailListType)));
         }
         return list;
     }

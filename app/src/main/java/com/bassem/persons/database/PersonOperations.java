@@ -46,6 +46,8 @@ public class PersonOperations implements BasicTableOperations<Person> {
         ContentValues values = new ContentValues();
         values.put(PersonsContract.PersonEntry.COLUMN_NAME_TITLE, person.getName());
         values.put(PersonsContract.PersonEntry.COLUMN_NAME_IMAGE_URL, person.getImageUrl());
+        values.put(PersonsContract.PersonEntry.COLUMN_NAME_PHONES, person.getPhones());
+        values.put(PersonsContract.PersonEntry.COLUMN_NAME_EMAILS, person.getEmails());
 
         // updating row
         return mSqliteDatabse.update(PersonsContract.PersonEntry.TABLE_NAME, values, PersonsContract.PersonEntry._ID + " = ?",
@@ -79,6 +81,8 @@ public class PersonOperations implements BasicTableOperations<Person> {
             values.put(PersonsContract.PersonEntry._ID, person.getId());
             values.put(PersonsContract.PersonEntry.COLUMN_NAME_TITLE, person.getName());
             values.put(PersonsContract.PersonEntry.COLUMN_NAME_IMAGE_URL, person.getImageUrl());
+            values.put(PersonsContract.PersonEntry.COLUMN_NAME_PHONES, person.getPhones());
+            values.put(PersonsContract.PersonEntry.COLUMN_NAME_EMAILS, person.getEmails());
             mSqliteDatabse.insertWithOnConflict(PersonsContract.PersonEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
         }
         mSqliteDatabse.setTransactionSuccessful();
@@ -106,7 +110,9 @@ public class PersonOperations implements BasicTableOperations<Person> {
             do {
                 Person person = new Person(cursor.getString(PersonsContract.PersonEntry.ID_COLUMN_INDEX),
                         cursor.getString(PersonsContract.PersonEntry.TITLE_COLUMN_INDEX),
-                        cursor.getString(PersonsContract.PersonEntry.IMAGE_COLUMN_INDEX));
+                        cursor.getString(PersonsContract.PersonEntry.IMAGE_COLUMN_INDEX),
+                        cursor.getString(PersonsContract.PersonEntry.PHONES_COLUMN_INDEX),
+                        cursor.getString(PersonsContract.PersonEntry.EMAILS_COLUMN_INDEX));
                 list.add(person);
             } while (cursor.moveToNext());
         }
