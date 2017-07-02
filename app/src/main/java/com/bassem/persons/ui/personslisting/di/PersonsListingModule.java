@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.bassem.persons.database.BasicTableOperations;
+import com.bassem.persons.database.DatabaseHandler;
+import com.bassem.persons.database.PersonOperations;
+import com.bassem.persons.database.models.Person;
 import com.bassem.persons.ui.personslisting.PersonsListingInteractor;
 import com.bassem.persons.ui.personslisting.PersonsListingInteractorImpl;
 import com.bassem.persons.ui.personslisting.PersonsListingPresenter;
@@ -91,11 +95,23 @@ public class PersonsListingModule {
                 .build();
     }
 
+    @Singleton
+    @Provides
+    public DatabaseHandler providesDatabaseHandler(Context context) {
+        return new DatabaseHandler(context);
+    }
 
     @Singleton
     @Provides
-    public PersonsListingInteractor ProvidesPersonsListingInteractor(Retrofit retrofit) {
-        return new PersonsListingInteractorImpl(retrofit);
+
+    public BasicTableOperations<Person> providesBasicTableOperations(DatabaseHandler handler) {
+        return new PersonOperations(handler.getWritableDatabase());
+    }
+
+    @Singleton
+    @Provides
+    public PersonsListingInteractor ProvidesPersonsListingInteractor(Retrofit retrofit, BasicTableOperations<Person> basicTableOperations) {
+        return new PersonsListingInteractorImpl(retrofit, basicTableOperations);
     }
 
     @Singleton

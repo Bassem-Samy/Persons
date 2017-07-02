@@ -17,6 +17,11 @@ public final class PersonsContract {
         public static final String CREATE_PERSONS_TABLE_STATEMENT = "CREATE TABLE " + TABLE_NAME + "("
                 + _ID + " INTEGER PRIMARY KEY," + COLUMN_NAME_TITLE + " TEXT,"
                 + COLUMN_NAME_IMAGE_URL + " TEXT" + ")";
+        public static final String SELECT_ALL_FROM_PERSON = "SELECT * FROM " + TABLE_NAME;
+        public static final int ID_COLUMN_INDEX = 0;
+        public static final int TITLE_COLUMN_INDEX = 1;
+        public static final int IMAGE_COLUMN_INDEX = 2;
+        public static final java.lang.String DELETE_ALL_FROM_TABLE = "DELTE * FROM " + TABLE_NAME;
     }
 
 }

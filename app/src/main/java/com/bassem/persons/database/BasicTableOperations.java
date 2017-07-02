@@ -1,5 +1,7 @@
 package com.bassem.persons.database;
 
+import com.bassem.persons.database.models.Person;
+
 import java.util.List;
 
 /**
@@ -15,4 +17,8 @@ public interface BasicTableOperations<T> {
     void delete(T item);
 
     void insertAll(List<T> items);
+
+    void deleteAll();
+
+    List<T> getAll();
 }
