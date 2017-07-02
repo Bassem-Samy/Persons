@@ -20,6 +20,7 @@ public final class PersonsContract {
                 + _ID + " INTEGER PRIMARY KEY," + COLUMN_NAME_TITLE + " TEXT,"
                 + COLUMN_NAME_IMAGE_URL + " TEXT," + COLUMN_NAME_PHONES + " TEXT," + COLUMN_NAME_EMAILS + " TEXT" + ")";
         public static final String SELECT_ALL_FROM_PERSON = "SELECT * FROM " + TABLE_NAME;
+        public static final String SELECT_ALL_FROM_PERSON_ORDER_BY_NAME_ASC="SELECT * FROM "+TABLE_NAME+" ORDER BY "+ COLUMN_NAME_TITLE+" ASC";
         public static final int ID_COLUMN_INDEX = 0;
         public static final int TITLE_COLUMN_INDEX = 1;
         public static final int IMAGE_COLUMN_INDEX = 2;

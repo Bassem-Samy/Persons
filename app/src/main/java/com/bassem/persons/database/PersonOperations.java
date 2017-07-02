@@ -105,7 +105,8 @@ public class PersonOperations implements BasicTableOperations<Person> {
     @Override
     public List<Person> getAll() {
         List<Person> list = new ArrayList<>();
-        Cursor cursor = mSqliteDatabse.rawQuery(PersonsContract.PersonEntry.SELECT_ALL_FROM_PERSON, null);
+        //   Cursor cursor = mSqliteDatabse.rawQuery(PersonsContract.PersonEntry.SELECT_ALL_FROM_PERSON, null);
+        Cursor cursor = mSqliteDatabse.rawQuery(PersonsContract.PersonEntry.SELECT_ALL_FROM_PERSON_ORDER_BY_NAME_ASC, null);
         if (cursor.moveToFirst()) {
             do {
                 Person person = new Person(cursor.getString(PersonsContract.PersonEntry.ID_COLUMN_INDEX),
