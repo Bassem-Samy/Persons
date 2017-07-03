@@ -1,7 +1,6 @@
-package com.bassem.persons.ui.personslisting;
+package com.bassem.persons.ui.person.personslisting;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,10 +15,8 @@ import android.widget.Toast;
 import com.bassem.persons.R;
 import com.bassem.persons.adapters.PersonRecyclerViewAdapter;
 import com.bassem.persons.database.models.Person;
-import com.bassem.persons.models.person.PersonData;
-import com.bassem.persons.ui.personslisting.di.DaggerPersonsListingComponent;
-import com.bassem.persons.ui.personslisting.di.PersonsListingComponent;
-import com.bassem.persons.ui.personslisting.di.PersonsListingModule;
+import com.bassem.persons.ui.person.personslisting.di.DaggerPersonsListingComponent;
+import com.bassem.persons.ui.person.personslisting.di.PersonsListingModule;
 import com.bassem.persons.utils.Constants;
 import com.bassem.persons.utils.PersonsSortFields;
 import com.bassem.persons.utils.SharedPreferencesHelper;

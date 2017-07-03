@@ -1,4 +1,4 @@
-package com.bassem.persons.ui.personslisting.di;
+package com.bassem.persons.ui.person.personslisting.di;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,11 +8,11 @@ import com.bassem.persons.database.BasicTableOperations;
 import com.bassem.persons.database.DatabaseHandler;
 import com.bassem.persons.database.PersonOperations;
 import com.bassem.persons.database.models.Person;
-import com.bassem.persons.ui.personslisting.PersonsListingInteractor;
-import com.bassem.persons.ui.personslisting.PersonsListingInteractorImpl;
-import com.bassem.persons.ui.personslisting.PersonsListingPresenter;
-import com.bassem.persons.ui.personslisting.PersonsListingPresenterImpl;
-import com.bassem.persons.ui.personslisting.PersonsListingView;
+import com.bassem.persons.ui.person.personslisting.PersonsListingInteractor;
+import com.bassem.persons.ui.person.personslisting.PersonsListingInteractorImpl;
+import com.bassem.persons.ui.person.personslisting.PersonsListingPresenter;
+import com.bassem.persons.ui.person.personslisting.PersonsListingPresenterImpl;
+import com.bassem.persons.ui.person.personslisting.PersonsListingView;
 import com.bassem.persons.utils.SharedPreferencesHelper;
 
 import javax.inject.Singleton;

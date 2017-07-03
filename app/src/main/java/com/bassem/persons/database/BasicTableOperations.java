@@ -21,4 +21,6 @@ public interface BasicTableOperations<T> {
     void deleteAll();
 
     List<T> getAll();
+
+    T getRecordById(String id);
 }

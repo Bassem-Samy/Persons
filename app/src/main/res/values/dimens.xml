@@ -9,4 +9,5 @@
     <dimen name="margin5">5dp</dimen>
     <dimen name="padding10">10dp</dimen>
     <dimen name="personListItemNameTextSize">16sp</dimen>
+    <dimen name="personDetailaNameTextSize">18sp</dimen>
 </resources>

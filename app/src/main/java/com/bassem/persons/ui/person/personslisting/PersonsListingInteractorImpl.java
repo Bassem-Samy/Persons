@@ -1,4 +1,4 @@
-package com.bassem.persons.ui.personslisting;
+package com.bassem.persons.ui.person.personslisting;
 
 import com.bassem.persons.database.BasicTableOperations;
 import com.bassem.persons.database.models.Person;

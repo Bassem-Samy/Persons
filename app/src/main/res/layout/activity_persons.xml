@@ -4,10 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bassem.persons.ui.personslisting.PersonsActivity">
+    tools:context=".ui.person.PersonsActivity">
 
     <FrameLayout
         android:id="@+id/frm_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frm_details_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></FrameLayout>
 </FrameLayout>

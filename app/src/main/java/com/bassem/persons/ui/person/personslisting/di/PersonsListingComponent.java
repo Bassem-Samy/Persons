@@ -1,6 +1,6 @@
-package com.bassem.persons.ui.personslisting.di;
+package com.bassem.persons.ui.person.personslisting.di;
 
-import com.bassem.persons.ui.personslisting.PersonsListingFragment;
+import com.bassem.persons.ui.person.personslisting.PersonsListingFragment;
 
 import javax.inject.Singleton;
 

@@ -27,10 +27,7 @@ public class PersonOperations implements BasicTableOperations<Person> {
      */
     @Override
     public void create(Person person) {
-        ContentValues values = new ContentValues();
-        values.put(PersonsContract.PersonEntry._ID, person.getId());
-        values.put(PersonsContract.PersonEntry.COLUMN_NAME_TITLE, person.getName());
-        values.put(PersonsContract.PersonEntry.COLUMN_NAME_IMAGE_URL, person.getImageUrl());
+        ContentValues values = createPersoContentValues(person);
         mSqliteDatabse.insert(PersonsContract.PersonEntry.TABLE_NAME, null, values);
         mSqliteDatabse.close();
     }
@@ -43,12 +40,7 @@ public class PersonOperations implements BasicTableOperations<Person> {
      */
     @Override
     public int update(Person person) {
-        ContentValues values = new ContentValues();
-        values.put(PersonsContract.PersonEntry.COLUMN_NAME_TITLE, person.getName());
-        values.put(PersonsContract.PersonEntry.COLUMN_NAME_IMAGE_URL, person.getImageUrl());
-        values.put(PersonsContract.PersonEntry.COLUMN_NAME_PHONES, person.getPhones());
-        values.put(PersonsContract.PersonEntry.COLUMN_NAME_EMAILS, person.getEmails());
-
+        ContentValues values = createPersoContentValues(person);
         // updating row
         return mSqliteDatabse.update(PersonsContract.PersonEntry.TABLE_NAME, values, PersonsContract.PersonEntry._ID + " = ?",
                 new String[]{String.valueOf(person.getId())});
@@ -77,12 +69,7 @@ public class PersonOperations implements BasicTableOperations<Person> {
         mSqliteDatabse.beginTransaction();
         for (Person person : items
                 ) {
-            ContentValues values = new ContentValues();
-            values.put(PersonsContract.PersonEntry._ID, person.getId());
-            values.put(PersonsContract.PersonEntry.COLUMN_NAME_TITLE, person.getName());
-            values.put(PersonsContract.PersonEntry.COLUMN_NAME_IMAGE_URL, person.getImageUrl());
-            values.put(PersonsContract.PersonEntry.COLUMN_NAME_PHONES, person.getPhones());
-            values.put(PersonsContract.PersonEntry.COLUMN_NAME_EMAILS, person.getEmails());
+            ContentValues values = createPersoContentValues(person);
             mSqliteDatabse.insertWithOnConflict(PersonsContract.PersonEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
         }
         mSqliteDatabse.setTransactionSuccessful();
@@ -109,14 +96,60 @@ public class PersonOperations implements BasicTableOperations<Person> {
         Cursor cursor = mSqliteDatabse.rawQuery(PersonsContract.PersonEntry.SELECT_ALL_FROM_PERSON_ORDER_BY_NAME_ASC, null);
         if (cursor.moveToFirst()) {
             do {
-                Person person = new Person(cursor.getString(PersonsContract.PersonEntry.ID_COLUMN_INDEX),
-                        cursor.getString(PersonsContract.PersonEntry.TITLE_COLUMN_INDEX),
-                        cursor.getString(PersonsContract.PersonEntry.IMAGE_COLUMN_INDEX),
-                        cursor.getString(PersonsContract.PersonEntry.PHONES_COLUMN_INDEX),
-                        cursor.getString(PersonsContract.PersonEntry.EMAILS_COLUMN_INDEX));
+                Person person = createPersonFromCursor(cursor);
+
                 list.add(person);
             } while (cursor.moveToNext());
         }
         return list;
+    }
+
+    /**
+     * gets a person by id
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Person getRecordById(String id) {
+        Cursor cursor = mSqliteDatabse.query(PersonsContract.PersonEntry.TABLE_NAME,
+                new String[]{
+                        PersonsContract.PersonEntry._ID, PersonsContract.PersonEntry.COLUMN_NAME_TITLE, PersonsContract.PersonEntry.COLUMN_NAME_IMAGE_URL, PersonsContract.PersonEntry.COLUMN_NAME_PHONES, PersonsContract.PersonEntry.COLUMN_NAME_EMAILS
+                }, PersonsContract.PersonEntry._ID + "=?",
+                new String[]{id}, null, null, null);
+        if (cursor != null) {
+            return createPersonFromCursor(cursor);
+        }
+        return null;
+    }
+
+    /**
+     * helper method to create a person object from a cursor of person
+     *
+     * @param cursor
+     * @return
+     */
+    Person createPersonFromCursor(Cursor cursor) {
+        return new Person(cursor.getString(PersonsContract.PersonEntry.ID_COLUMN_INDEX),
+                cursor.getString(PersonsContract.PersonEntry.TITLE_COLUMN_INDEX),
+                cursor.getString(PersonsContract.PersonEntry.IMAGE_COLUMN_INDEX),
+                cursor.getString(PersonsContract.PersonEntry.PHONES_COLUMN_INDEX),
+                cursor.getString(PersonsContract.PersonEntry.EMAILS_COLUMN_INDEX));
+
+    }
+
+    /**
+     * populates content values for person
+     *
+     * @param person
+     * @return
+     */
+    ContentValues createPersoContentValues(Person person) {
+        ContentValues values = new ContentValues();
+        values.put(PersonsContract.PersonEntry.COLUMN_NAME_TITLE, person.getName());
+        values.put(PersonsContract.PersonEntry.COLUMN_NAME_IMAGE_URL, person.getImageUrl());
+        values.put(PersonsContract.PersonEntry.COLUMN_NAME_PHONES, person.getPhones());
+        values.put(PersonsContract.PersonEntry.COLUMN_NAME_EMAILS, person.getEmails());
+        return values;
     }
 }
