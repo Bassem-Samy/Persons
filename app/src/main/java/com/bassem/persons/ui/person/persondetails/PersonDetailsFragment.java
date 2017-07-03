@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,9 +21,11 @@ import com.bassem.persons.R;
 import com.bassem.persons.models.person.PersonDetail;
 import com.bassem.persons.ui.person.persondetails.di.DaggerPersonDetailsComponent;
 import com.bassem.persons.ui.person.persondetails.di.PersonDetailsModule;
+import com.bassem.persons.utils.ImageLoader;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -44,6 +47,12 @@ public class PersonDetailsFragment extends Fragment implements PersonDetailsView
     ImageView personImageView;
     @BindView(R.id.prgrs_main)
     ProgressBar mainProgressBar;
+    @BindView(R.id.scrl_main)
+    ScrollView mainScrollView;
+    @BindString(R.string.no_phone_numbers)
+    String noPhoneNumbersMessage;
+    @BindString(R.string.no_emails)
+    String noEmailsMessage;
     @Inject
     PersonDetailsPresenter mPresenter;
 
@@ -111,20 +120,22 @@ public class PersonDetailsFragment extends Fragment implements PersonDetailsView
     @Override
     public void showProgress() {
         mainProgressBar.setVisibility(View.VISIBLE);
-
+        mainScrollView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void hideProgress() {
         mainProgressBar.setVisibility(View.GONE);
+        mainScrollView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void updateDetails(PersonDetail data) {
 
+        ImageLoader.loadImage(data.getImageUrl(), R.drawable.person_placeholder, personImageView);
         nameTextView.setText(data.getName());
-        phonesTextView.setText(data.getPhonesDisplayText());
-        emailsTextView.setText(data.getEmailsDisplayText());
+        phonesTextView.setText(TextUtils.isEmpty(data.getPhonesDisplayText()) ? noPhoneNumbersMessage : data.getPhonesDisplayText());
+        emailsTextView.setText(TextUtils.isEmpty(data.getEmailsDisplayText()) ? noEmailsMessage : data.getEmailsDisplayText());
     }
 
     @Override

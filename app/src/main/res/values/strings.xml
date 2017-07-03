@@ -15,5 +15,7 @@
     <string name="password_cant_be_spaces">Password can\'t be spaces</string>
     <string name="wrong_login_combination">Wrong login email/password combination</string>
     <string name="log_out">Log out</string>
+    <string name="no_phone_numbers">No Phone Numbers.</string>
+    <string name="no_emails">No Emails.</string>
 
 </resources>

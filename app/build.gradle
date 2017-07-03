@@ -24,6 +24,8 @@ def rxJavaVersion = "2.1.0"
 def rxAndroidVersion = "2.0.1"
 def daggerVersion = "2.11"
 def butterknifeVersion = "8.4.0"
+def glideVersion = "3.8.0"
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -46,6 +48,9 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
     // Circular Image
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    // Glide
+    compile "com.github.bumptech.glide:glide:${glideVersion}"
+    provided 'javax.annotation:jsr250-api:1.0'
     compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
 }

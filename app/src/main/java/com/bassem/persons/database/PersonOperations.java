@@ -118,6 +118,7 @@ public class PersonOperations implements BasicTableOperations<Person> {
                 }, PersonsContract.PersonEntry._ID + "=?",
                 new String[]{id}, null, null, null);
         if (cursor != null) {
+            cursor.moveToFirst();
             return createPersonFromCursor(cursor);
         }
         return null;

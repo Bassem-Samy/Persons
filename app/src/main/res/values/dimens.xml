@@ -10,4 +10,9 @@
     <dimen name="padding10">10dp</dimen>
     <dimen name="personListItemNameTextSize">16sp</dimen>
     <dimen name="personDetailaNameTextSize">18sp</dimen>
+    <dimen name="textSize14">14sp</dimen>
+    <dimen name="person_detail_image_width">100dp</dimen>
+    <dimen name="person_detail_image_height">100dp</dimen>
+    <dimen name="margin30">30dp</dimen>
+    <dimen name="person_detail_image_border">2dp</dimen>
 </resources>

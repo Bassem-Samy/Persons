@@ -42,9 +42,9 @@ public class PersonDataConverter {
      */
     private static String getPersonPicture(PersonData person) {
         if (person.getPictures() != null && person.getPictures().getPictures() != null) {
-            return (person.getPictures().getPictures().getUrl512() == null
-                    || person.getPictures().getPictures().getUrl512().trim() == "") ?
-                    person.getPictures().getPictures().geturl128() : person.getPictures().getPictures().getUrl512();
+            return (person.getPictures().getPictures().geturl128() == null
+                    || person.getPictures().getPictures().geturl128().trim() == "") ?
+                    person.getPictures().getPictures().getUrl512() : person.getPictures().getPictures().geturl128();
         }
         return null;
     }
