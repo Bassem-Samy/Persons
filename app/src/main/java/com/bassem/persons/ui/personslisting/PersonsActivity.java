@@ -2,11 +2,11 @@ package com.bassem.persons.ui.personslisting;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.bassem.persons.R;
-import com.bassem.persons.models.person.PersonData;
+import com.bassem.persons.database.models.Person;
 
 public class PersonsActivity extends AppCompatActivity implements PersonsListingFragment.OnFragmentInteractionListener {
 
@@ -31,7 +31,7 @@ public class PersonsActivity extends AppCompatActivity implements PersonsListing
     }
 
     @Override
-    public void onFragmentInteraction(PersonData person) {
+    public void onFragmentInteraction(Person person) {
 
     }
 }

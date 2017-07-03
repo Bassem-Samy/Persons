@@ -6,4 +6,7 @@
     <dimen name="login_title_textsize">20sp</dimen>
     <dimen name="login_email_textsize">16sp</dimen>
     <dimen name="login_password_textsize">16sp</dimen>
+    <dimen name="margin5">5dp</dimen>
+    <dimen name="padding10">10dp</dimen>
+    <dimen name="personListItemNameTextSize">16sp</dimen>
 </resources>

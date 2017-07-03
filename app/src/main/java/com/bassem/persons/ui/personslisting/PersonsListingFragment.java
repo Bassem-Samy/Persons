@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bassem.persons.R;
+import com.bassem.persons.adapters.PersonRecyclerViewAdapter;
 import com.bassem.persons.database.models.Person;
 import com.bassem.persons.models.person.PersonData;
 import com.bassem.persons.ui.personslisting.di.DaggerPersonsListingComponent;
@@ -43,11 +45,12 @@ public class PersonsListingFragment extends Fragment implements PersonsListingVi
     SharedPreferencesHelper mHelper;
 
     @BindView(R.id.rclr_person)
-    RecyclerView personReyclerView;
+    RecyclerView personRecyclerView;
     @BindView(R.id.prgrs_main)
     ProgressBar mainProgressBar;
     @BindString(R.string.general_error)
     String generalError;
+    PersonRecyclerViewAdapter mAdapter;
 
     public PersonsListingFragment() {
         // Required empty public constructor
@@ -114,6 +117,12 @@ public class PersonsListingFragment extends Fragment implements PersonsListingVi
 
     @Override
     public void updateData(List<Person> items) {
+        if (mAdapter == null) {
+            mAdapter = new PersonRecyclerViewAdapter(items, mOnPersonClickedListener);
+            LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            personRecyclerView.setLayoutManager(manager);
+            personRecyclerView.setAdapter(mAdapter);
+        }
 
     }
 
@@ -123,6 +132,17 @@ public class PersonsListingFragment extends Fragment implements PersonsListingVi
 
     }
 
+    View.OnClickListener mOnPersonClickedListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int position = personRecyclerView.getChildLayoutPosition(view);
+            if (mListener != null) {
+                mListener.onFragmentInteraction(mAdapter.getItemByPosition(position));
+            }
+
+        }
+    };
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -131,6 +151,6 @@ public class PersonsListingFragment extends Fragment implements PersonsListingVi
      */
     public interface OnFragmentInteractionListener {
 
-        void onFragmentInteraction(PersonData person);
+        void onFragmentInteraction(Person person);
     }
 }
