@@ -33,7 +33,7 @@ public class LoginActivityTest {
 
     @Before
     public void clearEditTexts() {
-
+// clear login token if exists to load login fragment
         SharedPreferencesHelper mhelper = new SharedPreferencesHelper(PreferenceManager.getDefaultSharedPreferences(mActivityRule.getActivity()));
         mhelper.saveCompanyDomain(null);
         mhelper.saveApiToken(null);
