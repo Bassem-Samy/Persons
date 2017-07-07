@@ -65,4 +65,5 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnF
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
+
 }

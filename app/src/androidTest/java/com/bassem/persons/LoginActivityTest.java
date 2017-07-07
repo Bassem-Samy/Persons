@@ -7,7 +7,9 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.bassem.persons.utils.SharedPreferencesHelper;
 
+import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +34,7 @@ public class LoginActivityTest {
 
 
     @Before
-    public void clearEditTexts() {
+     public void clearEditTexts() {
 // clear login token if exists to load login fragment
         SharedPreferencesHelper mhelper = new SharedPreferencesHelper(PreferenceManager.getDefaultSharedPreferences(mActivityRule.getActivity()));
         mhelper.saveCompanyDomain(null);
@@ -90,6 +92,13 @@ public class LoginActivityTest {
         waitForToast();
     }
 
+
+    @After
+    public void clearSharedPreferences() {
+        SharedPreferencesHelper helper = new SharedPreferencesHelper(PreferenceManager.getDefaultSharedPreferences(mActivityRule.getActivity()));
+        helper.saveApiToken(null);
+        helper.saveCompanyDomain(null);
+    }
 
     /**
      * Function to wait until the toast is hidden, in order to accurately find the toast text
