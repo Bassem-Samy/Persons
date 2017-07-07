@@ -10,3 +10,4 @@ Then the user is prompeted to see a list of the contacts and when clicks on any,
 * I have added an android unit test using espresso to test the login validations and that the listing of person is displayed correctly.
 * I have added a unit test for the PersonDataConverter class where this class is responsible to convert the person object that comes from the api to a person object suitable for saving in the db
 * 3rd party libraries used:RxJava/RxAndroid 2, Dagger2, Butterknife, Retrofit2 and Glide.
+* You can login using the following account: bassem.samy@hotmail.com and password: 12345678
